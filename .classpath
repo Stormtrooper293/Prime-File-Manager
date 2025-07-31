@@ -1,9 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="gen"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry kind="output" path="bin/classes"/>
-</classpath>
+// app/build.gradle.kts
+
+plugins {
+    id("com.android.application")
+    // If you use Kotlin, add: id("org.jetbrains.kotlin.android")
+}
+
+android {
+    // This replaces the "ANDROID_FRAMEWORK" entry by defining which version of the Android API to compile against.
+    namespace = "com.primefilemanger"
+    compileSdk = 34
+
+    defaultConfig {
+        applicationId = "com.primefilemanger"
+        minSdk = 21
+        targetSdk = 34
+        versionCode = 306
+        versionName = "1.53.6b2"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    // The 'sourceSets' block replaces the <classpathentry kind="src" ...> tags.
+    // By default, Gradle looks in 'src/main/java', so you don't even need to declare it.
+    // The 'gen' folder is no longer used; Gradle manages generated files automatically.
+    sourceSets {
+        getByName("main") {
+            java.srcDirs("src/main/java")
+        }
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = true
+            // ... and other release configurations
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    // The entire build output, which used to go to the "bin/" folder,
+    // is now managed by Gradle inside the "build/" directory.
+}
+
+// This 'dependencies' block is the modern replacement for the "LIBRARIES" and "DEPENDENCIES" entries.
+// Instead of adding JAR files manually, you declare them here.
+dependencies {
+    // Example: implementation("androidx.appcompat:appcompat:1.6.1")
+    // Example: implementation("com.google.android.material:material:1.11.0")
+}
