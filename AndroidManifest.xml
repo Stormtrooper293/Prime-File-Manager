@@ -1,164 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.ghostsq.commander"
-      android:versionName="1.53.6b2"
-      android:versionCode="306"
-      android:label="@string/app_name"
-      android:sharedUserId="com.ghostsq.commander.userId"
-      android:installLocation="auto">
-    <supports-screens
-          android:largeScreens="true"
-          android:normalScreens="true"
-          android:smallScreens="true"
-          android:resizeable="true"
-          android:anyDensity="true" />
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.primefilemanger">
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE" /-->
-    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="13" />
-    
-    <application 
-        android:icon="@drawable/icon" 
-        android:label="@string/app_name"
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
+        android:maxSdkVersion="30" />
+
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="34" />
+
+    <application
+        android:name=".MainApplication"
         android:allowBackup="true"
-        android:launchMode="singleTask">
-        <!-- android:process="com.ghostsq.commander" -->
-        <activity 
-            android:name=".FileCommander" 
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:resizeableActivity="true"
+        android:enableOnBackInvokedCallback="true"
+        android:installLocation="auto">
+
+        <activity
+            android:name=".FileCommander"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout|smallestScreenSize"
             android:label="@string/app_name"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.PICK"/>
-                <data android:mimeType="*/*" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.GET_CONTENT" />
-                <data android:mimeType="*/*" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.OPENABLE" />
+                <data android:mimeType="*/*" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="file" />
                 <data android:scheme="ftp" />
-                <data android:scheme="file" />
-                </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="file" />
-                <data android:mimeType="inode/directory" />
-                </intent-filter>
-            <!-- intent-filter>
-                <action android:name="org.openintents.action.VIEW_DIRECTORY"/>
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="file" />
-                </intent-filter-->
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:mimeType="application/x-zip-compressed" />
+                <data android:mimeType="*/*" />
+                <data android:pathPattern=".*\\.zip" />
                 <data android:mimeType="application/zip" />
-                <data android:pathPattern=".*\.zip" />
-                </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH_LONG_PRESS"/>
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity 
+
+        <activity
             android:name=".TextViewer"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/textvw_label"
-            android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
-            android:theme="@style/FullScreen">
+            android:theme="@style/FullScreen"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/*" />
             </intent-filter>
         </activity>
-        <activity 
-            android:name=".Editor"  
-            android:label="@string/editor_label"
+
+        <activity
+            android:name=".Editor"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/editor_label"
             android:theme="@style/FullScreen"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.EDIT" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/*"/>
+                <data android:mimeType="text/*" />
             </intent-filter>
         </activity>
-        <activity 
+
+        <activity
             android:name=".PictureViewer"
-            android:label="@string/pictvw_label"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTop">
+            android:label="@string/pictvw_label"
+            android:launchMode="singleTop"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="image/*" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Prefs"
-            android:label="@string/prefs_label">
-        </activity>
+            android:label="@string/prefs_label"
+            android:exported="false" />
         <activity
             android:name=".FileTypes"
-            android:label="@string/filetypes_label">
-        </activity>
+            android:label="@string/filetypes_label"
+            android:exported="false" />
         <activity
             android:name=".toolbuttons.ToolButtonsProps"
-            android:label="@string/tblist_label">
-          <!--android:windowSoftInputMode="adjustPan"-->
-        </activity>
-        
-		<activity
-		    android:name=".ServerForm"
+            android:label="@string/tblist_label"
+            android:exported="false" />
+        <activity
+            android:name=".ServerForm"
             android:label="@string/connect"
-		    android:theme="@style/AsDialog"/>
-		<activity
-		    android:name=".root.EditRootPermissions"
+            android:theme="@style/AsDialog"
+            android:exported="false"/>
+        <activity
+            android:name=".root.EditRootPermissions"
             android:label="@string/perms_label"
-            android:theme="@style/AsDialog"/>
+            android:theme="@style/AsDialog"
+            android:exported="false"/>
         <activity
             android:name=".adapters.EditFTPPermissions"
             android:label="@string/perms_label"
-            android:theme="@style/AsDialog"/>
+            android:theme="@style/AsDialog"
+            android:exported="false"/>
+
         <provider
             android:name=".FileProvider"
-            android:authorities="com.ghostsq.commander.FileProvider"/>
-		<service
-		    android:name=".StreamServer"
-		    />
-		<service
-		    android:name=".BackgroundWork"
-		    />
-     <meta-data
-       android:name="com.sec.android.support.multiwindow"
-       android:value="true"
-     />     
-	</application>
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <service android:name=".StreamServer" android:exported="false" />
+        <service android:name=".BackgroundWork" android:exported="false" />
+
+    </application>
+
 </manifest>
- 
